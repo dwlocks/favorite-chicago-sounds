@@ -1,0 +1,79 @@
+<html><title>:: Your Favorite Chicago Sounds ::</title>
+<style type="text/css">
+<!--
+.style1 {font-family: Arial, Helvetica, sans-serif}
+.style2 {font-size: 12px}
+.style5 {font-family: "Times New Roman", Times, serif}
+-->
+</style>
+<body>
+<table height="100%" width="100%"  border="0">
+<tr>
+  <td height="591" align="center" valign="middle">
+
+<div><img src="Chi_Sounds_Header_web.jpg"></div>
+<div class="style2"> 
+  <table width="800" border="0">
+    <tr>
+      <td><p class="style5">Chicago is world famous for its architecture. But what about its sounds? &quot;Your Favorite Chicago Sounds&quot; aims to discover<br>
+        what Chicagoans think about their city's soundscape and to reveal the Chicago of the ear. Please let us know your response<br>
+        to the questions below and contribute to a unique audio portrait of the city. Be as specific or detailed as you like. The sounds will be recorded and used for a CD, &quot;Your Favorite Chicago Sounds.&quot;</p>
+        <p class="style5">  The &quot;Favorite Sounds&quot; project originated in London and has been carried out in Beijing and other world cities. The CD<br>
+  &quot;Your Favourite London Sounds&quot; was released in 2001 and a CD for Beijing is planned for this year. The long-term aim is to
+          build up an overall sonic idea of what people find positive about the ever-changing sound of their cities.<br>
+          Many thanks for your help.</p></td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  </div>
+<div>
+<form name="chiSounds" action="chiSoundsResult.php" method="POST">
+<span class="style1">What is Your Favorite Chicago Sound?</span><br />
+<input name="favSound" type="text" size="30" maxlength="200" />
+<br />
+
+<span class="style1">Why?</span><br />
+<textarea name="whySound" cols="30" rows="3"></textarea>
+<br />
+<br />
+<span class="style1">Your Favorite Sounding Place in Chicago?</span><br />
+<input name="favPlace" type="text" size="30" maxlength="200" />
+<br />
+
+<span class="style1">Why?</span><br />
+<textarea name="whyPlace" cols="30" rows="3"></textarea>
+
+<br />
+<span class="style1"><br />
+Your Favorite Chicago Sight?</span><br />
+<input name="favSight" type="text" size="30" maxlength="200" />
+<br />
+
+<span class="style1">Why?</span><br />
+<textarea name="whySight" cols="30" rows="3"></textarea>
+<br />
+<br />
+<span class="style1">What is Your Name?</span><br />
+<input name="name" type="text" size="30" maxlength="40" />
+<br />
+<span class="style1">Area of Chicago where you live:</span><br />
+<input name="neighborhood" type="text" size="30" maxlength="100" />
+<br />
+<span class="style1">Your Email Address:</span><br />
+<input name="email" type="text" size="30" maxlength="100" />
+
+<br />
+
+<input type="submit" value="Submit" />
+</form>
+</div>
+</td>
+</tr>
+<tr>
+  <td height="0" align="center" valign="middle">&nbsp;</td>
+</tr>
+</table>
+
+
+</body>
+</html>

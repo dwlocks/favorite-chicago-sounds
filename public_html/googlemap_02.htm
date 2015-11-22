@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>FCS</title>
+    <meta name="title" content="MapBuilder - GoogleMap API Source Code Generator." />
+    <meta name="description" content="MapBuilder.net lets you tag locations on a map and publish it on your own site. Mapping is now easier than ever. It's free." />
+    <meta name="keywords" content="Google Maps API, PHP, AJAX, XML" />
+    <meta name="author" content="Andrew Bidochko. http://www.mapbuilder.net" />
+    <style type="text/css">
+      
+      /* Generic map, side bar holder styles */
+      .MapBuilder {font: normal small verdana, arial, helvetica, sans-serif; font-size: 10pt; margin: 0px;}
+      .MapBuilder a {text-decoration: none; color: #0066CC; background-color: transparent;}
+      .MapBuilder a:hover {color: #F60; background-color: transparent;}
+      .MapBuilder h1 {font-weight: bold; font-size: 16pt; color: #369; border-bottom: 2px solid #369;}
+      
+      /* Info Window styles */
+      .IW { width: 350px;}
+      .IWContent {height: 120px; overflow:auto;}
+      .IWCaption {font-weight: bold; font-size: 12pt; color: #369; border-bottom: 2px solid #369;}
+      .IWFooter {margin-top: 5px; font-size: 8pt; }
+      .IWFooterZoom {}
+      .IWDirections{background-color:#FFF;}
+
+ 
+      .MapBuilderSideBar {float:left; margin-left: 10px; }
+ 
+
+      
+    </style>
+
+    <!-- Please, request sign up for your own GMAP KEY at http://www.google.com/apis/maps/signup.html and replace 'GMAPKEY' entry with generated key in the line below. -->
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAMBh4_qfjigaLN47Rxy7FMRQ3aiGd9hZ43gGkmlov1avIca8OXBTWamS5jb4JFm9MonqpjOd9euSzSw" type="text/javascript"></script>
+    <script src="http://www.mapbuilder.net/js/api/google/v2.03/?UserName=tdgale&amp;Map=56632&amp;SideBar=Right" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    //<![CDATA[
+
+    // Global Variables
+    // set map variable
+    var map = null;
+    //set up array of locations
+    var aLocations = new Array;
+
+    /*************************** Configuration Options ***************************/
+    /*PDMarker is used to display tooltips when the user hovers over the markers.
+    * PDMarker is a LGPL library provided by Peter Jones. 
+    * For details see http://wwww.pixeldevelopment.com/pdmarker.asp
+    */
+    var usePDMarker = false;
+
+    // Create a base "tiny" red  icon that specifies the shadow, icon dimensions, etc.
+    var iconsm = new GIcon();
+    iconsm.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+    iconsm.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+    iconsm.iconSize = new GSize(12, 20);
+    iconsm.shadowSize = new GSize(20, 18);
+    iconsm.iconAnchor = new GPoint(6, 20);
+    iconsm.infoWindowAnchor = new GPoint(5, 1);
+
+    // Create a base "large" red icon that specifies the shadow, icon dimensions, etc.
+    var iconbig = new GIcon();
+    iconbig.image = "http://www.google.com/mapfiles/marker.png";
+    iconbig.shadow = "http://www.google.com/mapfiles/shadow50.png";
+    iconbig.iconSize = new GSize(20, 34);
+    iconbig.shadowSize = new GSize(37, 34);
+    iconbig.iconAnchor = new GPoint(6, 34);
+    iconbig.infoWindowAnchor = new GPoint(5, 1);
+
+    // Custom Icon
+    var iconcustom = new GIcon(iconbig);
+    iconcustom.shadow = '';
+
+    function onLoad() {
+      if (!GBrowserIsCompatible()) 
+      {
+         document.getElementById("MapBuilderMap").innerHTML = "Unfortunately your browser doesn't support Google Maps.<br /> To check browser compatibility visit the following <a href=\"http://local.google.com/support/bin/answer.py?answer=16532&topic=1499\">link</a>.";
+         return;
+      }
+
+      map = new GMap2(document.getElementById("MapBuilderMap"));
+      var MB = new MapBuilder(map);
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GMapTypeControl());
+      // Center the map to the default location and set map type
+      map.setCenter(new GLatLng(41.87876395548937, -87.60910034179688), 10, map.getMapTypes()[0]);
+      	  
+      // Initialize variables
+      var point = null;
+      var footerHtml = null;
+      var InfoHTML = null;
+      var marker = null;
+      /* Options used for PDMarker initialization:
+      * label: tooltip text
+      * opasity: tooltip opasity
+      */
+      var options = {};
+
+      // Add locations
+	
+      point = new GLatLng(41.975321, -87.665357);
+      footerHtml = "<div class=\"IWFooter\"><div class=\"IWFooterZoom\"><a href=\"javascript:void(0)\" onclick=\"ZoomMapTo(0)\">Zoom To</a></div></div>";
+
+      // Define Marker
+      InfoHTML = "<div class=\"IW\"><div class=\"IWCaption\">home</div><div class=\"IWContent\">This is where the user text will go.  My favorite sound is blah blah ipsum lorem.<br></div>" + footerHtml + "</div>";
+      iconbig.image = "http://www.mapbuilder.net/img/icons/marker_34_red.png";
+      marker = createMarker(point, InfoHTML, iconbig, options, 0);
+      map.addOverlay(marker);
+      aLocations[0] = new Array(marker, "home", InfoHTML, point);
+	
+      point = new GLatLng(41.88322, -87.627879);
+      footerHtml = "<div class=\"IWFooter\"><div class=\"IWFooterZoom\"><a href=\"javascript:void(0)\" onclick=\"ZoomMapTo(1)\">Zoom To</a></div></div>";
+
+      // Define Marker
+      InfoHTML = "<div class=\"IW\"><div class=\"IWCaption\">Old Navy</div><div class=\"IWContent\"><br></div>" + footerHtml + "</div>";
+      iconbig.image = "http://www.mapbuilder.net/img/icons/marker_34_red.png";
+      marker = createMarker(point, InfoHTML, iconbig, options, 1);
+      map.addOverlay(marker);
+      aLocations[1] = new Array(marker, "Old Navy", InfoHTML, point);
+	
+      point = new GLatLng(41.94719, -87.656479);
+      footerHtml = "<div class=\"IWFooter\"><div class=\"IWFooterZoom\"><a href=\"javascript:void(0)\" onclick=\"ZoomMapTo(2)\">Zoom To</a></div></div>";
+
+      // Define Marker
+      InfoHTML = "<div class=\"IW\"><div class=\"IWCaption\">Wrigley Field</div><div class=\"IWContent\"><br></div>" + footerHtml + "</div>";
+      iconbig.image = "http://www.mapbuilder.net/img/icons/marker_34_blue.png";
+      marker = createMarker(point, InfoHTML, iconbig, options, 2);
+      map.addOverlay(marker);
+      aLocations[2] = new Array(marker, "Wrigley Field", InfoHTML, point);
+      // And finnaly create sidebar
+      createSideBar();
+    }
+
+    //]]>
+    </script>
+  </head>
+  <body onload="onLoad()" onunload="GUnload();">
+	<div id="MapBuilder" class="MapBuilder">
+      <h1>FCS</h1>
+      <p>favorite chicago sounds</p>
+ 
+      <div id="MapHolder" class="MapHolder" style="float:left;">
+        <div id="MapBuilderMap" style="width: 600px; height: 500px;"></div>
+        <!-- Please KEEP RESPECT to MapBuilder.net team and DO NOT DELETE line below if you want to keep MapBuilder service free. -->
+        Created by <a href="http://www.MapBuilder.net">MapBuilder.net</a>.
+      </div>
+ 
+      <div id="MapBuilderSideBar" class="MapBuilderSideBar">
+        <div id="SideBarAction">Map Locations [<a id="SideBarActionLink" href="javascript:void(0)" onclick="ProcessLocationList()">-</a>]</div>
+        <div id="LocationList" style="height: 480px; overflow:auto;"></div>
+      </div>
+ 
+    </div>
+  </body>
+</html>

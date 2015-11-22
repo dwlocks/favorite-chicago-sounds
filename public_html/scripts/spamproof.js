@@ -1,0 +1,1 @@
+function printmail(name, domain, cat, display) {    return '<a href="mailto:' + name + '@' + domain + '.' + cat + '">' + display + '</a>';}

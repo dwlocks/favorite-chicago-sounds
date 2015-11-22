@@ -1,0 +1,46 @@
+body {
+	font-family: Helvetica, Sans-Serif;
+	font-size: 14px;
+	margin: 0px;
+	text-align: center;
+	width: 100%;
+}
+table	{
+	font-family: Helvetica, Sans-Serif;
+	font-size: 12px;
+}
+p	{
+	text-align: left;
+}
+p.intro	{
+	font-size: 14px;
+}
+div.body	{
+	margin: auto; 
+	width: 800px;	
+}
+div.form	{
+	margin: auto;
+	text-align: left;
+	width: 400px;
+}
+td.header	{
+	font-weight: bold;
+}
+.input	{
+	width: 345px;
+}
+.btn	{
+	font-family: Helvetica, Sans-Serif;
+	font-size: 14px;
+}
+span.sound {
+	font-size: 14px;
+	font-weight: bold;
+}
+span.why {
+	font-size: 12px;
+}
+span.submitter {
+	font-size: 10px;
+}

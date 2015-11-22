@@ -1,0 +1,111 @@
+<html>
+<head>	
+	<title>:: Your Favorite Chicago Sounds ::</title>
+	<link rel="stylesheet" href="main.css" type="text/css" />
+	<script type="text/javascript">
+		function getName(dd) {
+			if (dd.selectedIndex > 0) {
+				var hid = document.getElementById("neighborhood_name");
+				if (typeof(hid) != 'undefined') {
+					hid.value = dd.options[dd.selectedIndex].text;
+				}
+			}	
+		}
+	</script>
+</head>
+<body>
+	<div class="body">
+        <?php include 'header.php'; ?>
+        <p>
+			Chicago is world famous for its architecture, but what about its sounds?  "Your Favorite Chicago Sounds" aims to discover what Chicagoans think about their city's soundscape and to reveal the Chicago of the ear. Please let us know your response to the questions below and contribute to a unique audio portrait of the city. Be as specific or detailed as you like. Once you've submitted a response, we'll send you a password so you can check out what other Chi-town residents wrote. And come back at the end of October, when we'll post mp3 recordings of favorite sounds, along with a comments board.
+		</p>
+		<p>
+			The &quot;Favorite Sounds&quot; project originated in London and has been carried out in Beijing and other world cities. The CD
+			&quot;Your Favourite London Sounds&quot; was released in 2001 and a CD for Beijing is planned for this year. The long-term aim is to
+			build up an overall sonic idea of what people find positive about the ever-changing sound of their cities.
+			Many thanks for your help.
+		</p>
+		<p>
+			<a href="javascript:;" onclick="window.open('cpr.php','cpr','width=800px,height=300px');">Isn't Chicago Public Radio doing something like this?</a>
+		</p>
+		<p>&nbsp;</p>
+		<div class="form">
+			<?php
+			
+			/* MySQL goes here */
+			
+			$db = mysql_connect('favoritechicagosounds.ipowermysql.com', 'favorite_web', 'pass');
+			if (!$db) {
+			   die('*** Could not connect: ' . mysql_error());
+			}
+			
+			mysql_select_db('favorite_sounds', $db);
+			
+			$query = "SELECT id, name FROM neighborhoods ORDER BY name";
+			$result = mysql_query($query);
+			
+			$num = mysql_numrows($result);
+			
+			mysql_close();
+			
+			?>
+			<form name="chiSounds" action="thankyou.php" method="POST">
+				What is Your Favorite Chicago Sound?<br />
+				<input id="favSound" name="favSound" type="text" maxlength="255" class="input" />
+				<br /><br />
+				Why?<br />
+				<textarea id="whySound" name="whySound" cols="40" rows="5"></textarea>
+				<br /><br />
+				Where did you hear this sound? (street address or intersection)<br />
+				<input id="address" name="address" type="text" size="30" maxlength="255" class="input" />
+				<br /><br />
+				Your Favorite Sounding Place in Chicago?<br />
+				<input id="favPlace" name="favPlace" type="text" maxlength="255" class="input" />
+				<br /><br />
+				Why?<br />
+				<textarea id="whyPlace" name="whyPlace" cols="40" rows="5"></textarea>
+				<br /><br />
+				Your Favorite Chicago Sight?<br />
+				<input id="favSight" name="favSight" type="text" maxlength="255" class="input" />
+				<br /><br />
+				Why?<br />
+				<textarea id="whySight" name="whySight" cols="40" rows="5"></textarea>
+				<br /><br />
+				Your First Name:<br />
+				<input id="fname" name="fname" type="text" maxlength="255" class="input" />
+				<br /><br />
+				Your Last Name:<br />
+				<input id="lname" name="lname" type="text" maxlength="255" class="input" />
+				<br /><br />
+				Your Email Address:<br />
+				<input id="email" name="email" type="text" size="30" maxlength="255" class="input" />
+				<br /><br />
+				Chicago Neighborhood Where You Live:<br />
+				<select id="neighborhood_id" name="neighborhood_id" class="input" onchange="getName(this);">
+					<option value="" selected="selected"></option>
+					<?
+					$i = 0;
+					while ($i < $num) {
+						$id = mysql_result($result,$i,"id");
+						$name = mysql_result($result,$i,"name");
+					?>
+					<option value="<? echo $id; ?>"><? echo $name; ?></option>
+					<?
+					$i++;
+					}
+					?>
+				</select>
+				<br /><br />
+				<input type="checkbox" id="usename" name="usename" value="no" />&nbsp;Do Not Use My Name on the Site&nbsp;&nbsp;(<a href="privacy.php">Your Privacy</a>)
+                <br /><br />
+				<input type="checkbox" id="updates" name="updates" value="no" />&nbsp;Do Not Send Me Updates
+				<br /><br />
+				<input type="hidden" id="neighborhood_name" name="neighborhood_name" value="" />
+				<input type="submit" value="Submit" class="btn" />
+				<br />
+			</form>
+		</div>
+        <?php include 'footer.php'; ?>
+	</div>
+</body>
+</html>

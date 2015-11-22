@@ -1,0 +1,74 @@
+<html>
+<head>	
+	<title>:: Your Favorite Chicago Sounds ::</title>
+	<link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+	<div class="body">
+		<div><img src="Chi_Sounds_Header_web.jpg"></div>
+		<div> 
+			<p>
+				Thank you for your honest input. This information is very helpful as a team begins to gather sounds. We hope to have some examples online soon.
+				<br />
+				<br />
+				You submitted the following:<br />
+
+<?php
+
+print "My favorite Chicago sound is: $favSound";
+print "<br />";
+
+print "Because: $whySound";
+print "<br />";
+
+print "Address/Intersection: $address";
+print "<br />";
+
+print "My favorite sounding place in Chicago is: $favPlace";
+print "<br />";
+
+print "Because: $whyPlace";
+print "<br />";
+
+print "My favorite Chicago sight is: $favSight";
+print "<br />";
+
+print "Because: $whySight";
+print "<br />";
+
+print "My name is: $name";
+print "<br />";
+
+print "I live in: $neighborhood_name";
+print "<br />";
+
+print "My email address is: $email";
+print "<br />";
+
+print "<br />";
+
+/* MySQL goes here */
+
+$db = mysql_connect('favoritechicagosounds.ipowermysql.com', 'favorite_web', 'pass');
+if (!$db) {
+   die('*** Could not connect: ' . mysql_error());
+}
+
+mysql_select_db('favorite_sounds', $db);
+
+$info = "INSERT INTO favorite_sounds (favSound, whySound, address, favPlace, whyPlace, favSight, whySight, name, email, neighborhood_id) VALUES ('$favSound', '$whySound', '$address', '$favPlace', '$whyPlace', '$favSight', '$whySight', '$name', '$email', $neighborhood_id)";
+
+$result = mysql_query($info);
+
+if($result == TRUE) {
+        print   "Please stay tuned as this project evolves and your input is utilized ";        
+} else {
+        print   '<span style="font-weight:bold;">A problem was encountered while logging your submission.  If the problem persists, please contact the site administrator <br />';
+}
+
+?>
+			</p>
+		</div>
+	</div>
+</body>
+</html>
